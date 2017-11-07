@@ -1,0 +1,83 @@
+package uwstout.cs144.projects.project1.material;
+
+import java.text.NumberFormat;
+import java.util.Scanner;
+
+/**
+ * This class is used for testing the MaterialDelivery class.
+ * 
+ * @author Flowersc
+ * @version 2016-10-12
+ *
+ */
+public class Delivery {
+
+	/**
+	 * This class is used for testing the MaterialDelivery class.
+	 * 
+	 * @param args
+	 *            Command line parameters
+	 */
+	public static void main(String[] args) {
+
+		/**
+		 * Test1
+		 * 		Material Name = Spicy Banana
+		 * 		Number of pounds = 14001
+		 * 		Cost of the material = 1.50
+		 * 		Tax = 5%
+		 * 		Result = $41,426.44
+		 * Test2
+		 * 		Material Name = Doritos
+		 * 		Number of pounds = 13999
+		 * 		Cost of the material = 3.00
+		 * 		Tax = 25%
+		 * 		Result = $53,090.62
+		 * Test3
+		 * 		Material Name = Lays Stale Chips
+		 * 		Number of pounds = 30000
+		 * 		Cost of the material = 5.00
+		 * 		Tax = 15%
+		 * 		Result = $174,140.48
+		 * 
+		 */
+		String name;
+		int pounds;
+		double cost;
+		double theTax;
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		NumberFormat percent = NumberFormat.getPercentInstance();
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("What is the name of the material?");
+		name = input.nextLine();
+
+		System.out.println("What is the number of pounds of material?");
+		pounds = input.nextInt();
+
+		System.out.println("What is the cost of the material?");
+		cost = input.nextDouble();
+
+		System.out.println("What is the percent tax as a decimal?");
+		theTax = input.nextDouble();
+
+		MaterialDelivery test;
+		test = new MaterialDelivery(name, pounds, cost);
+		System.out.println("The name of the material is "
+				+ test.getMaterial());
+		System.out.println("The amount of pounds is "
+				+ test.getWeight());
+		System.out.println("The cost per pound is "
+				+ currency.format(test.getCostPerPound()));
+		System.out.println("The tax on the delivery is "
+				+ percent.format(theTax));
+		System.out.println("The number of trucks needed is "
+				+ test.getNumberOfTrucks());
+		System.out.println("The cost of the material is "
+				+ currency.format(test.getMaterialCost()));
+		System.out.println("The total cost of the delivery is "
+				+ currency.format(test.getTotalCost(theTax)));
+
+	}
+
+}
