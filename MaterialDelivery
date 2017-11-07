@@ -1,0 +1,174 @@
+package uwstout.cs144.projects.project1.material;
+
+/**
+ * The purpose of this class is to calculate the cost of a delivery.
+ * 
+ * @author Flowersc
+ * @version 2016-10-12
+ */
+public class MaterialDelivery {
+	private String name;
+	private int pounds;
+	private double cost;
+	/**
+	 * This is the fee for each truck in the delivery.
+	 */
+	private static final double SHIPPING_FEE = 475.50;
+	/**
+	 * This is the maximum weight each truck can carry.
+	 */
+	private static final int MAX_WEIGHT = 14000;
+	/**
+	 * This is the minimum cost for a given material.
+	 */
+	private static final double MIN_COST = 2.75;
+
+	// constructors 3 of them
+	/**
+	 * The purpose of this constructor is to get the material name, make sure
+	 * the pounds is a positive value, and to make sure the cost is positive and
+	 * that it is at least 2.75.
+	 * 
+	 * @param nName
+	 *            The name of the material
+	 * @param nPounds
+	 *            The weight of the material
+	 * @param nCost
+	 *            The cost of the material
+	 */
+	public MaterialDelivery(String nName, int nPounds, double nCost) {
+		// use the max in the math class
+
+		name = nName;
+		pounds = Math.max(nPounds, 0);
+		cost = Math.max(Math.max(nCost, 2.75), 0);
+
+	}
+
+	/**
+	 * The purpose of this constructor is to get the material name, make sure
+	 * the pounds is a positive value, and set the cost to the minimum cost
+	 * value, which is 2.75.
+	 * 
+	 * @param nName
+	 *            The name of the material
+	 * @param nPounds
+	 *            The weight o the material
+	 */
+	public MaterialDelivery(String nName, int nPounds) {
+
+		name = nName;
+		pounds = Math.max(nPounds, 0);
+		cost = MIN_COST;
+	}
+
+	/**
+	 * The purpose of this constructor is to make a copy of an existing
+	 * MaterialDelivery.
+	 * 
+	 * @param m
+	 *            Is another MaterialDelivery
+	 */
+	public MaterialDelivery(MaterialDelivery m) {
+		name = m.name;
+		pounds = m.pounds;
+		cost = m.cost;
+
+	}
+
+	// getters
+	/**
+	 * This getter gets the name of the material.
+	 * 
+	 * @return name of the material
+	 */
+	public String getMaterial() {
+		return name;
+	}
+
+	/**
+	 * This getter gets the weight of the material.
+	 * 
+	 * @return pounds of material
+	 */
+	public int getWeight() {
+		return pounds;
+	}
+
+	/**
+	 * This getter gets the cost of the material.
+	 * 
+	 * @return the cost of the material
+	 */
+	public double getCostPerPound() {
+		return cost;
+	}
+
+	// setters
+	/**
+	 * This setter sets the weight of the material.
+	 * 
+	 * @param nPounds
+	 *            This is the weight of the material, and it is a positive value
+	 */
+	public void setWeight(int nPounds) {
+		pounds = Math.max(nPounds, 0);
+	}
+
+	/**
+	 * This setter sets the cost of the material.
+	 * 
+	 * @param nCost
+	 *            This is the cost of the material, and it is a positive value
+	 */
+	public void setCostPerPound(double nCost) {
+		cost = Math.max(Math.max(nCost, 2.75), 0);
+	}
+
+	/**
+	 * This method calculates the cost of the material.
+	 * 
+	 * @return the value of the cost of the material multiplied by the weight of
+	 *         the material
+	 */
+	public double getMaterialCost() {
+		double  materialCost;
+		materialCost = pounds * cost;
+
+		return materialCost;
+	}
+
+	/**
+	 * This method calculates the number of trucks used in the delivery.
+	 * 
+	 * @return the number of trucks used in the delivery
+	 */
+	public int getNumberOfTrucks() {
+		int numberOfTrucks;
+		numberOfTrucks = (int) Math.ceil((double) pounds / MAX_WEIGHT);
+		return numberOfTrucks;
+	}
+
+	/**
+	 * This method calculates the entire cost of the delivery.
+	 * 
+	 * @param nTax
+	 *            the tax on the delivery
+	 * @return the total cost of the entire delivery
+	 */
+	public double getTotalCost(double nTax) {
+		double tax;
+		double theCost;
+		double almostTotal;
+		double totalCost;
+		int trucks;
+		tax = nTax;
+		MaterialDelivery myDelivery;
+		myDelivery = new MaterialDelivery(name, pounds, cost);
+		trucks = myDelivery.getNumberOfTrucks();
+		theCost = trucks * SHIPPING_FEE;
+		almostTotal = myDelivery.getMaterialCost();
+		totalCost = (almostTotal + theCost) + ((almostTotal + theCost) * tax);
+		return totalCost;
+	}
+}
